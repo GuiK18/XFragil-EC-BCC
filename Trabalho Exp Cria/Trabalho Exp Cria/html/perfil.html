@@ -1,146 +1,148 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil do Profissional</title>
-    <link rel="stylesheet" href="../css/perfil.css">
-</head>
-<body>
 
-    <div class="container">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Perfil do Profissional</title>
+        <link rel="stylesheet" href="../css/perfil.css">
+    </head>
+    
+    <body>
 
-        <!-- TOPO -->
-        <div class="top-bar">
-            <input type="text" placeholder="Nome" class="top-input">
-            <button class="plus-button">+</button>
-        </div>
+        <div class="container">
 
-        <!-- PERFIL -->
-        <div class="profile-section">
+            <!-- TOPO -->
+            <div class="top-bar">
+                <input type="text" placeholder="Nome" class="top-input">
+                <button class="plus-button">+</button>
+            </div>
 
-            <div class="profile-image-container">
+            <!-- PERFIL -->
+            <div class="profile-section">
 
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+                <div class="profile-image-container">
 
-                <!-- BOTÃO LÁPIS -->
-                <button class="edit-button" onclick="abrirModal()">
-                    ✎
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+
+                    <!-- BOTÃO LÁPIS -->
+                    <button class="edit-button" onclick="abrirModal()">
+                        ✎
+                    </button>
+
+                </div>
+
+                <div class="profile-info">
+                    <h1>Nome</h1>
+                    <p>Cargo na empresa</p>
+                    <span>#id.de.conta</span>
+                </div>
+
+            </div>
+
+            <!-- CABEÇALHO -->
+            <div class="patients-header">
+
+                <h2>Meus pacientes</h2>
+
+                <input
+                    type="text"
+                    placeholder="Procurar pacientes"
+                    class="search-input"
+                >
+
+                <button class="add-patient-button">
+                    Adicionar paciente
                 </button>
 
             </div>
 
-            <div class="profile-info">
+            <!-- LISTA -->
+            <div class="patients-list">
+
+                <div class="patient-card">
+
+                    <div class="patient-left">
+                        <h3>Nome paciente</h3>
+                        <span>| #id.paciente</span>
+                    </div>
+
+                    <div class="patient-right">
+                        data/ultima/consulta
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- MODAL -->
+        <div class="modal-overlay" id="modal">
+
+            <div class="modal">
+
+                <div class="modal-image">
+
+                    <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
+
+                    <button class="modal-edit-button">
+                        ✎
+                    </button>
+
+                </div>
+
                 <h1>Nome</h1>
-                <p>Cargo na empresa</p>
+
                 <span>#id.de.conta</span>
-            </div>
 
-        </div>
+                <div class="modal-info">
 
-        <!-- CABEÇALHO -->
-        <div class="patients-header">
+                    <div class="info-line">
+                        Cargo na empresa
+                        <button>✎</button>
+                    </div>
 
-            <h2>Meus pacientes</h2>
+                    <div class="info-line">
+                        Email@email.com
+                        <button>✎</button>
+                    </div>
 
-            <input
-                type="text"
-                placeholder="Procurar pacientes"
-                class="search-input"
-            >
+                    <div class="info-line">
+                        CPF: 000.000.000-00
+                    </div>
 
-            <button class="add-patient-button">
-                Adicionar paciente
-            </button>
-
-        </div>
-
-        <!-- LISTA -->
-        <div class="patients-list">
-
-            <div class="patient-card">
-
-                <div class="patient-left">
-                    <h3>Nome paciente</h3>
-                    <span>| #id.paciente</span>
                 </div>
 
-                <div class="patient-right">
-                    data/ultima/consulta
+                <a href="#">Trocar senha</a>
+
+                <div class="modal-buttons">
+
+                    <button onclick="fecharModal()">
+                        Cancelar
+                    </button>
+
+                    <button>
+                        Salvar
+                    </button>
+
                 </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- MODAL -->
-    <div class="modal-overlay" id="modal">
-
-        <div class="modal">
-
-            <div class="modal-image">
-
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" alt="">
-
-                <button class="modal-edit-button">
-                    ✎
-                </button>
-
-            </div>
-
-            <h1>Nome</h1>
-
-            <span>#id.de.conta</span>
-
-            <div class="modal-info">
-
-                <div class="info-line">
-                    Cargo na empresa
-                    <button>✎</button>
-                </div>
-
-                <div class="info-line">
-                    Email@email.com
-                    <button>✎</button>
-                </div>
-
-                <div class="info-line">
-                    CPF: 000.000.000-00
-                </div>
-
-            </div>
-
-            <a href="#">Trocar senha</a>
-
-            <div class="modal-buttons">
-
-                <button onclick="fecharModal()">
-                    Cancelar
-                </button>
-
-                <button>
-                    Salvar
-                </button>
 
             </div>
 
         </div>
 
-    </div>
+        <script>
 
-    <script>
+            function abrirModal() {
+                document.getElementById("modal").style.display = "flex";
+            }
 
-        function abrirModal() {
-            document.getElementById("modal").style.display = "flex";
-        }
+            function fecharModal() {
+                document.getElementById("modal").style.display = "none";
+            }
 
-        function fecharModal() {
-            document.getElementById("modal").style.display = "none";
-        }
+        </script>
 
-    </script>
-
-</body>
+    </body>
 </html>

@@ -30,6 +30,12 @@ body {
   font-weight: bold;
 
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
 }
 
 .container {
