@@ -1,9 +1,8 @@
 # XFragil-EC-BCC
 
 ## Integrantes da Equipe: Allan Takeshi, Guilherme Kavalco, Heitor dos Santos, Thiago Muraro.
-
-## Esse projeto foi proposto na matéria de Experiência Criativa 
-## pelos professores Andrey Cabral Meira e Roberto Hirochi Herai.
+Esse projeto foi proposto na matéria de Experiência Criativa 
+pelos professores Andrey Cabral Meira e Roberto Hirochi Herai.
 
 ##----------------------------------------------------------------------------------------------
 
