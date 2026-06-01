@@ -52,7 +52,6 @@ body {
     font-weight: bold;
 }
 
-/* PERFIL */
 
 .profile {
     display: flex;
@@ -142,7 +141,6 @@ body {
     font-size: 18px;
 }
 
-/* TELA CRIAR */
 
 #telaCriar {
     padding: 18px 35px 35px;
@@ -285,4 +283,18 @@ body {
 
 .sintoma.selecionado {
     background-color: #c2c2c2;
+}
+
+.obs.selecionada-ativa {
+    border-color: #777;
+    background: #c8c8c8;
+}
+
+#resultadoCalculo {
+    margin-top: 18px;
+    padding: 0 2px;
+}
+#historicoBox {
+    max-height: 160px;
+    overflow-y: auto;
 }
