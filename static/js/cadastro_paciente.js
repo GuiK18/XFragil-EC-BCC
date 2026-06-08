@@ -20,6 +20,7 @@ let abaAtiva = null;
 let abaContador = 0;
 let pacientes = [];
 
+
 function gerarId() {
     return "#" + Math.floor(Math.random() * 90000 + 10000);
 }
@@ -168,9 +169,17 @@ function carregarEstadoAba(id) {
 
     obsAtual = aba.observacoes.map(o => ({ ...o }));
     obsSelecionada = null;
-    renderObservacoes();
 
+    renderObservacoes();
     renderHistorico(aba.historico);
+
+    const resultadoBox = document.getElementById("resultadoBox");
+    if (aba.historico && aba.historico.length > 0) {
+        const ultimoCalculo = aba.historico[aba.historico.length - 1];
+        renderResultado(ultimoCalculo.pontuacao, ultimoCalculo.limiarAmarelo, ultimoCalculo.limiarVermelho, ultimoCalculo.sex);
+    } else {
+        if (resultadoBox) resultadoBox.innerHTML = "";
+    }
 }
 
 function calcularPontuacao() {
@@ -222,13 +231,21 @@ function renderResultado(pontuacao, limiarAmarelo, limiarVermelho, sexo) {
 
 function renderHistorico(historico) {
     const box = document.getElementById("historicoBox");
+    const resultadoBox = document.getElementById("resultadoBox"); // Captura a caixa do resultado atual
+
     if (!historico || historico.length === 0) {
         box.innerHTML = "<p style='color:#999; font-size:14px;'>Nenhum cálculo realizado ainda.</p>";
-        document.getElementById("resultadoCalculo").style.display = historico?.length ? "block" : "none";
+        if (resultadoBox) {
+            resultadoBox.innerHTML = "";
+        }
+        document.getElementById("resultadoCalculo").style.display = "none";
         return;
     }
 
     document.getElementById("resultadoCalculo").style.display = "block";
+    if (resultadoBox && resultadoBox.innerHTML !== "") {
+    }
+
     box.innerHTML = historico.slice().reverse().map((h, i) => {
         const cor = h.pontuacao >= h.limiarVermelho ? "#c0392b"
                    : h.pontuacao >= h.limiarAmarelo ? "#d68910"
@@ -242,7 +259,6 @@ function renderHistorico(historico) {
                      : `<span style="color:#888"> (=)</span>`;
             })()
             : "";
-
         return `
             <div style="display:flex; justify-content:space-between; align-items:center;
                         background:#e8e8e8; border-radius:8px; padding:7px 12px; margin-bottom:5px; font-size:14px;">
@@ -375,3 +391,18 @@ document.querySelectorAll(".sintoma").forEach(s => {
 document.querySelector(".tab:first-child").addEventListener("click", irParaPerfil);
 document.querySelector(".plus-button").addEventListener("click", abrirNovaAba);
 document.getElementById("tabCriar").style.display = "none";
+
+window.addEventListener("load", () => {
+    const nome = localStorage.getItem("medicoNome");
+    const cargo = localStorage.getItem("medicoCargo");
+    const email = localStorage.getItem("medicoEmail");
+
+    if (nome) {
+        document.querySelector(".profile h1").textContent = nome;
+        document.querySelector(".tab:first-child").textContent = nome;
+    }
+
+    if (cargo) {
+        document.querySelector(".profile p:nth-of-type(1)").textContent = cargo;
+    }
+});
