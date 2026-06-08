@@ -7,20 +7,13 @@ const role =
 require("../middlewares/roleMiddleware");
 
 const controller =
-require("../controllers/pacienteController");
-
-router.post(
-    "/",
-    auth,
-    role("ADM","DOC","SECRETARIA"),
-    controller.criar
-);
+require("../controllers/relatorioController");
 
 router.get(
-    "/meus",
+    "/:idPaciente",
     auth,
-    role("DOC"),
-    controller.meusPacientes
+    role("ADM","DOC"),
+    controller.gerar
 );
 
 module.exports = router;

@@ -53,10 +53,10 @@
             <h2>Profissional responsável: Nome</h2>
 
             <div class="form-paciente">
-                <input id="nomePaciente" placeholder="NomePaciente">
-                <input id="dataNascimento" placeholder="Data/de/n...">
-                <input id="cpfPaciente" placeholder="CPF">
-                <input id="sexoPaciente" placeholder="Sexo: F / M">
+                <input id="nomePaciente" placeholder="Nome do Paciente">
+                <input id="dataNascimento" type="date">
+                <input id="cpfPaciente" placeholder="CPF (somente digitos)" maxlength="11" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                <input id="sexoPaciente" placeholder="Sexo: [F] [M]">
                 <input id="responsavelPaciente" placeholder="Responsável">
             </div>
 
@@ -115,6 +115,6 @@
         document.getElementById("tabCriar").style.display = "none";
     }
 </script>
-<script src="../../controller/js/cadastro_paciente.js"></script>
+<script src="../../static/js/cadastro_paciente.js"></script>
 </body>
 </html>

@@ -7,20 +7,20 @@ const role =
 require("../middlewares/roleMiddleware");
 
 const controller =
-require("../controllers/pacienteController");
+require("../controllers/contaController");
 
 router.post(
     "/",
     auth,
-    role("ADM","DOC","SECRETARIA"),
+    role("ADM"),
     controller.criar
 );
 
 router.get(
-    "/meus",
+    "/profissionais",
     auth,
-    role("DOC"),
-    controller.meusPacientes
+    role("ADM", "SECRETARIA"),
+    controller.listarProfissionais
 );
 
 module.exports = router;
