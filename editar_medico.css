@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: white;
+}
+
+.top-bar {
+    width: 100%;
+    height: 55px;
+    background: #7888c9;
+    border-bottom: 3px solid #455595;
+}
+
+.editar-container {
+    width: 100%;
+    min-height: calc(100vh - 55px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 28px;
+}
+
+.foto-perfil {
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    border: 3px solid #aaa;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.foto-perfil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.input-nome {
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    width: 350px;
+    margin-bottom: 5px;
+}
+
+.id-conta {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.campo-editavel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 4px 0;
+}
+
+.campo-editavel input {
+    border: none;
+    outline: none;
+    font-size: 24px;
+    text-align: center;
+    width: 310px;
+}
+
+.campo-editavel span {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #777;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+}
+
+.cpf {
+    font-size: 24px;
+    margin-top: 5px;
+}
+
+.trocar-senha {
+    color: #222;
+    font-size: 24px;
+    margin-top: 12px;
+}
+
+.botoes {
+    display: flex;
+    gap: 14px;
+    margin-top: 25px;
+}
+
+.botoes button {
+    width: 145px;
+    height: 55px;
+    border: none;
+    border-radius: 14px;
+    background: #7888c9;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.botoes button:hover {
+    background: #455595;
+}
