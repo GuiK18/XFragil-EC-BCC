@@ -33,10 +33,20 @@ body {
     font-size: 16px;
 }
 
+.tab:first-child {
+    color: black;
+}
+
 .tab.active {
-    background: white;
+    background: #2e3d7a;
     justify-content: space-between;
     align-items: center;
+    color: white;
+}
+
+.tab-dinamica {
+    background: #7888c9 !important;
+    color: white !important;
 }
 
 .tab span {

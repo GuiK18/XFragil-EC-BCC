@@ -38,7 +38,8 @@ function renderTabs() {
         tab.className = "tab active tab-dinamica";
         tab.dataset.abaId = aba.id;
         tab.style.cssText = "display:flex;align-items:center;gap:10px;cursor:pointer;";
-        tab.style.background = aba.id === abaAtiva ? "white" : "#ddd";
+        tab.style.background = aba.id === abaAtiva ? "#2e3d7a" : "#7888c9";
+        tab.style.color = "white";
 
         const titulo = document.createElement("span");
         titulo.textContent = aba.tabNome || "Criar Paciente";
@@ -231,7 +232,7 @@ function renderResultado(pontuacao, limiarAmarelo, limiarVermelho, sexo) {
 
 function renderHistorico(historico) {
     const box = document.getElementById("historicoBox");
-    const resultadoBox = document.getElementById("resultadoBox"); 
+    const resultadoBox = document.getElementById("resultadoBox"); // Captura a caixa do resultado atual
 
     if (!historico || historico.length === 0) {
         box.innerHTML = "<p style='color:#999; font-size:14px;'>Nenhum cálculo realizado ainda.</p>";
@@ -268,6 +269,11 @@ function renderHistorico(historico) {
             </div>
         `;
     }).join("");
+}
+
+function apenasCalcular() {
+    const { pontuacao, limiarAmarelo, limiarVermelho, sexo } = calcularPontuacao();
+    renderResultado(pontuacao, limiarAmarelo, limiarVermelho, sexo);
 }
 
 function registrarPaciente() {
@@ -383,6 +389,7 @@ document.querySelector(".patients-header input").addEventListener("input", funct
 
         const b = card.querySelector("b");
         const nome = b ? b.textContent.toLowerCase() : card.textContent.toLowerCase();
+
         const pacId = card.dataset.pacId;
         const pac = pacientes.find(p => p.id === pacId);
         const cpf = ((pac ? pac.dados.cpf : "") || card.dataset.cpf || "").replace(/[^0-9]/g, "");
