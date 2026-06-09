@@ -231,7 +231,7 @@ function renderResultado(pontuacao, limiarAmarelo, limiarVermelho, sexo) {
 
 function renderHistorico(historico) {
     const box = document.getElementById("historicoBox");
-    const resultadoBox = document.getElementById("resultadoBox"); // Captura a caixa do resultado atual
+    const resultadoBox = document.getElementById("resultadoBox"); 
 
     if (!historico || historico.length === 0) {
         box.innerHTML = "<p style='color:#999; font-size:14px;'>Nenhum cálculo realizado ainda.</p>";
@@ -377,10 +377,17 @@ document.querySelectorAll(".buttons button")[2].addEventListener("click", () => 
 });
 
 document.querySelector(".patients-header input").addEventListener("input", function () {
-    const termo = this.value.toLowerCase();
+    const termo = this.value.replace(/[^a-z0-9]/gi, "").toLowerCase();
     document.querySelectorAll(".patient-card").forEach(card => {
-        const nome = card.querySelector("b").textContent.toLowerCase();
-        card.style.display = nome.includes(termo) ? "" : "none";
+        if (termo === "") { card.style.display = ""; return; }
+
+        const b = card.querySelector("b");
+        const nome = b ? b.textContent.toLowerCase() : card.textContent.toLowerCase();
+        const pacId = card.dataset.pacId;
+        const pac = pacientes.find(p => p.id === pacId);
+        const cpf = ((pac ? pac.dados.cpf : "") || card.dataset.cpf || "").replace(/[^0-9]/g, "");
+
+        card.style.display = (nome.includes(termo) || cpf.includes(termo)) ? "" : "none";
     });
 });
 
