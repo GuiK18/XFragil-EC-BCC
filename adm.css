@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: white;
+}
+
+header {
+    width: 100%;
+    height: 45px;
+    background: #455595;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 51% 47%;
+    padding: 20px;
+    gap: 20px;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.foto-box {
+    width: 85px;
+    height: 85px;
+    position: relative;
+}
+
+.foto-box img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid #aaa;
+}
+
+.foto-box button {
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: #777;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.perfil h2 {
+    font-size: 24px;
+}
+
+.perfil p {
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.titulo-linha {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.titulo-linha h2 {
+    font-size: 22px;
+}
+
+.titulo-linha input {
+    height: 32px;
+    border: none;
+    border-radius: 18px;
+    background: #d7d7d7;
+    padding-left: 15px;
+    font-size: 15px;
+    outline: none;
+}
+
+.titulo-linha button {
+    height: 34px;
+    padding: 0 16px;
+    border: 3px solid #888;
+    border-radius: 10px;
+    background: #bbb;
+    color: #666;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.lista-scroll {
+    background: #b5b5b5;
+    border: 3px solid #888;
+    border-radius: 6px;
+    padding: 6px;
+    overflow-y: auto;
+}
+
+#listaRelatorios {
+    height: 222px;
+}
+
+.pacientes {
+    height: 222px;
+}
+
+.profissionais {
+    height: 222px;
+}
+
+.profissionais-titulo {
+    margin-top: 12px;
+}
+
+.lista-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lista-scroll::-webkit-scrollbar-thumb {
+    background: #777;
+    border-radius: 10px;
+}
+
+.item-lista {
+    min-height: 36px;
+    background: #e7e7e7;
+    border: 2px solid #999;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    padding: 7px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.item-lista:hover {
+    background: #d7d7d7;
+}
+
+.item-lista span {
+    font-size: 16px;
+}
+
+.item-lista i {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.oculto {
+    display: none;
+}

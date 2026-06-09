@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="adm.css">
+</head>
+<body>
+
+<header></header>
+
+<main class="container">
+
+    <section class="lado-esquerdo">
+
+        <div class="perfil">
+            <div class="foto-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+                <button onclick="editarPerfil()">✎</button>
+            </div>
+
+            <div>
+                <h2 id="nomeUsuario">Nome</h2>
+                <p id="cargoUsuario">Cargo na empresa</p>
+                <p>Administrador</p>
+                <p>#id.de.conta</p>
+            </div>
+        </div>
+
+        <div class="titulo-linha">
+            <h2>Relatórios</h2>
+            <input id="buscarRelatorio" placeholder="Procurar relatórios">
+            <button onclick="adicionarRelatorio()">Adicionar</button>
+        </div>
+
+        <div class="lista-scroll" id="listaRelatorios"></div>
+
+    </section>
+
+    <section class="lado-direito">
+
+        <div class="titulo-linha">
+            <h2>Pacientes</h2>
+            <input id="buscarPaciente" placeholder="Procurar pacientes">
+            <button onclick="adicionarPaciente()">Adicionar</button>
+        </div>
+
+        <div class="lista-scroll pacientes" id="listaPacientes"></div>
+
+        <div class="titulo-linha profissionais-titulo">
+            <h2>Profissionais</h2>
+            <input id="buscarProfissional" placeholder="Procurar profissional/secretaria">
+            <button onclick="adicionarProfissional()">Adicionar</button>
+        </div>
+
+        <div class="lista-scroll profissionais" id="listaProfissionais"></div>
+
+    </section>
+
+</main>
+
+<script src="adm.js"></script>
+</body>
+</html>
