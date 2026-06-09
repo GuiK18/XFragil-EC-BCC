@@ -9,22 +9,19 @@
   </head>
 
   <body>
-    <a href="index.html" class="btn-entrar">Entrar</a>
-
     <main class="container">
-      <h1>Crie sua conta</h1>
+      <h1>Adicione um Profissional</h1>
 
       <form>
-        <input type="text" placeholder="Nome completo">
+        <input type="text" placeholder="Nome completo do Profissional">
         <input placeholder="CPF" placeholder="CPF (somente digitos)" maxlength="11" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         <input type="email" placeholder="Email">
-        <input type="text" placeholder="Cargo na empresa">
+        <input type="text" placeholder="Tipo de Usuário">
         <input type="password" placeholder="Senha">
         <input type="password" placeholder="Confirmação de senha">
 
         <button class="btn-criar" type="submit">Criar</button>
 
-        <a href="index.html" class="link-conta">Já tenho conta</a>
       </form>
     </main>
   </body>
