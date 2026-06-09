@@ -1,0 +1,247 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: white;
+}
+
+header {
+    width: 100%;
+    height: 45px;
+    background: #455595;
+}
+
+.container {
+    padding: 30px 25px 10px;
+}
+
+.topo {
+    display: grid;
+    grid-template-columns: 42% 14% 3px 1fr;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.dados-paciente h2 {
+    font-size: 23px;
+}
+
+.dados-paciente p,
+.dados-centro p,
+.dados-profissional p {
+    font-size: 20px;
+    line-height: 1.1;
+}
+
+.dados-paciente h3 {
+    font-size: 20px;
+    line-height: 1.1;
+}
+
+.dados-paciente button {
+    margin-top: 6px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 13px;
+    background: #d5d5d5;
+    font-size: 13px;
+}
+
+.dados-centro {
+    text-align: right;
+    padding-right: 15px;
+}
+
+.lapis {
+    margin-top: 12px;
+    border: none;
+    border-radius: 50%;
+    background: #777;
+    color: white;
+    width: 24px;
+    height: 24px;
+    font-weight: bold;
+}
+
+.divisor {
+    width: 3px;
+    height: 105px;
+    background: #ddd;
+}
+
+.dados-profissional {
+    padding-left: 16px;
+}
+
+.dados-profissional h3 {
+    font-size: 20px;
+}
+
+.conteudo {
+    display: grid;
+    grid-template-columns: 246px 286px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.lista-scroll {
+    background: #aaa;
+    border: 3px solid #888;
+    border-radius: 6px;
+    padding: 6px;
+    overflow-y: auto;
+}
+
+.sintomas .lista-scroll {
+    height: 538px;
+}
+
+.observacoes .lista-scroll {
+    height: 365px;
+}
+
+.relatorios {
+    height: 200px;
+}
+
+.historico {
+    height: 169px;
+}
+
+.lista-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lista-scroll::-webkit-scrollbar-thumb {
+    background: #777;
+    border-radius: 10px;
+}
+
+.lista-scroll button {
+    width: 100%;
+    height: 36px;
+    margin-bottom: 8px;
+    border: 2px solid #777;
+    border-radius: 7px;
+    background: #bbb;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.lista-scroll button.selecionado {
+    background: #455595;
+}
+
+.item-observacao,
+.item-relatorio,
+.item-historico {
+    width: 100%;
+    margin-bottom: 6px;
+    border-radius: 7px;
+    font-size: 16px;
+}
+
+.item-observacao {
+    background: #ddd;
+    border: 2px solid #777;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.item-observacao.selecionada {
+    outline: 3px solid #455595;
+}
+
+.item-observacao p {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.item-observacao span {
+    display: block;
+    color: #999;
+    margin-top: 8px;
+}
+
+.botoes {
+    display: flex;
+    gap: 7px;
+    margin-top: 8px;
+}
+
+.botoes button,
+.relatorios-topo button {
+    height: 47px;
+    padding: 0 13px;
+    border: 3px solid #888;
+    border-radius: 9px;
+    background: #bbb;
+    font-size: 15px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+}
+
+.relatorios-topo {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.relatorios-topo h2 {
+    margin-bottom: 0;
+}
+
+.relatorios-topo input {
+    height: 32px;
+    border: none;
+    border-radius: 18px;
+    background: #ddd;
+    padding-left: 15px;
+    font-size: 16px;
+}
+
+.item-relatorio {
+    height: 32px;
+    background: #ddd;
+    border: 2px solid #777;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.item-relatorio.oculto {
+    display: none;
+}
+
+.titulo-historico {
+    margin-top: 18px;
+}
+
+.item-historico {
+    min-height: 40px;
+    background: #777;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: bold;
+}

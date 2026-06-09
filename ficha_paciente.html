@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Ficha do Paciente</title>
+    <link rel="stylesheet" href="ficha_paciente.css">
+</head>
+<body>
+
+<header></header>
+
+<main class="container">
+
+    <section class="topo">
+        <div class="dados-paciente">
+            <h2>NomePaciente</h2>
+            <p>Data/de/nascimento</p>
+            <p>CPF: 000.000.000-00</p>
+            <p>Responsável</p>
+            <h3>Score: <span id="score">000</span></h3>
+            <button>Grau de Probabilidade</button>
+        </div>
+
+        <div class="dados-centro">
+            <p>#id.paciente</p>
+            <p>Idade: 00</p>
+            <p>Sexo: F / M</p>
+            <button class="lapis">✎</button>
+        </div>
+
+        <div class="divisor"></div>
+
+        <div class="dados-profissional">
+            <h3>Profissional responsável: Nome</h3>
+            <p>Data/ultimo/exame</p>
+        </div>
+    </section>
+
+    <section class="conteudo">
+
+        <div class="coluna sintomas">
+            <h2>Sintomas</h2>
+
+            <div class="lista-scroll" id="listaSintomas">
+                <button>sintoma1</button>
+                <button>sintoma2</button>
+                <button>sintoma3</button>
+                <button>sintoma4</button>
+                <button>sintoma5</button>
+                <button>sintoma6</button>
+                <button>sintoma7</button>
+                <button>sintoma8</button>
+                <button>sintoma9</button>
+                <button>sintoma10</button>
+                <button>sintoma11</button>
+                <button>sintoma12</button>
+            </div>
+        </div>
+
+        <div class="coluna observacoes">
+            <h2>Observações</h2>
+
+            <div class="lista-scroll" id="listaObservacoes"></div>
+
+            <div class="botoes">
+                <button onclick="adicionarObservacao()">Adicionar</button>
+                <button onclick="editarObservacao()">Editar</button>
+                <button onclick="deletarObservacao()">Deletar</button>
+            </div>
+        </div>
+
+        <div class="coluna-direita">
+
+            <div class="relatorios-topo">
+                <h2>Relatórios</h2>
+                <input id="buscarRelatorio" placeholder="Procurar relatórios">
+                <button onclick="adicionarRelatorio()">Adicionar</button>
+            </div>
+
+            <div class="lista-scroll relatorios" id="listaRelatorios"></div>
+
+            <h2 class="titulo-historico">Histórico de mudanças</h2>
+
+            <div class="lista-scroll historico" id="listaHistorico"></div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script src="ficha_paciente.js"></script>
+</body>
+</html>
