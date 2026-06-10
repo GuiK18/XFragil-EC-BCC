@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório do Paciente</title>
+    <link rel="stylesheet" href="relatorio.css">
+</head>
+<body>
+
+<div class="pagina">
+
+    <header></header>
+
+    <main class="container">
+
+        <section class="coluna-esquerda">
+
+            <div class="info-paciente">
+                <div>
+                    <h1>NomePaciente</h1>
+                    <p>Data/de/nascimento</p>
+                    <p>CPF: 000.000.000-00</p>
+                    <p>Responsável</p>
+                    <h2>Score: 000</h2>
+                    <button>Grau de Probabilidade</button>
+                </div>
+
+                <div class="info-extra">
+                    <p>#id.de.conta</p>
+                    <p>Idade: 00</p>
+                    <p>Sexo: F / M</p>
+                </div>
+            </div>
+
+            <div class="opcoes">
+                <h2>Opções de relatório</h2>
+                <div class="linha"></div>
+                <button onclick="imprimirRelatorio()">Imprimir</button>
+                <button onclick="deletarRelatorio()">Deletar</button>
+            </div>
+
+        </section>
+
+        <div class="divisor"></div>
+
+        <section class="coluna-centro">
+
+            <div class="profissional">
+                <h2>Profissional responsável: Nome</h2>
+                <p>Data/ultimo/exame</p>
+            </div>
+
+            <h2 class="titulo-observacoes">Observações</h2>
+
+            <div class="caixa observacoes" id="listaObservacoes"></div>
+
+        </section>
+
+        <section class="coluna-direita">
+
+            <h2 class="titulo-sintomas">Sintomas</h2>
+
+            <div class="caixa sintomas" id="listaSintomas">
+                <button>sintoma1</button>
+                <button>sintoma2</button>
+                <button>sintoma3</button>
+                <button>sintoma4</button>
+                <button>sintoma5</button>
+                <button>sintoma6</button>
+                <button>sintoma7</button>
+                <button>sintoma8</button>
+                <button>sintoma9</button>
+                <button>sintoma10</button>
+                <button>sintoma11</button>
+                <button>sintoma12</button>
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<script src="relatorio.js"></script>
+</body>
+</html>

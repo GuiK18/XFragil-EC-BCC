@@ -1,0 +1,202 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #111;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: white;
+}
+
+.pagina {
+    width: 100%;
+    min-height: 100vh;
+    background: white;
+}
+
+header {
+    width: 100%;
+    height: 51px;
+    background: #455595;
+}
+
+.container {
+    min-height: calc(100vh - 51px);
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 28% 3px 34% 30%;
+    gap: 18px;
+}
+
+.coluna-esquerda {
+    position: relative;
+}
+
+.info-paciente {
+    display: flex;
+    justify-content: space-between;
+}
+
+.info-paciente h1 {
+    font-size: 24px;
+    line-height: 1.1;
+}
+
+.info-paciente p {
+    font-size: 19px;
+    line-height: 1.16;
+}
+
+.info-paciente h2 {
+    font-size: 19px;
+    line-height: 1.16;
+}
+
+.info-paciente button {
+    margin-top: 7px;
+    padding: 7px 13px;
+    border: none;
+    border-radius: 14px;
+    background: #d7d7d7;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.info-extra {
+    text-align: right;
+}
+
+.opcoes {
+    position: absolute;
+    bottom: 12px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.opcoes h2 {
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.linha {
+    height: 3px;
+    background: #ddd;
+    margin-bottom: 10px;
+}
+
+.opcoes button {
+    display: block;
+    width: 91%;
+    height: 46px;
+    margin: 0 auto 10px;
+    border: 3px solid #888;
+    border-radius: 8px;
+    background: #bbb;
+    color: #666;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.divisor {
+    width: 3px;
+    height: auto;
+    background: #ddd;
+}
+
+.profissional {
+    margin-bottom: 36px;
+}
+
+.profissional h2 {
+    font-size: 19px;
+}
+
+.profissional p {
+    font-size: 18px;
+}
+
+.titulo-observacoes,
+.titulo-sintomas {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.caixa {
+    background: #aaa;
+    border: 3px solid #888;
+    border-radius: 6px;
+    padding: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.observacoes {
+    width: 100%;
+    height: 70vh;
+}
+.sintomas {
+    width: 100%;
+    height: 70vh;
+}
+.caixa::-webkit-scrollbar {
+    width: 8px;
+}
+
+.caixa::-webkit-scrollbar-thumb {
+    background: #777;
+    border-radius: 10px;
+}
+
+.item-observacao {
+    width: 100%;
+    background: #ddd;
+    border: 2px solid #777;
+    border-radius: 7px;
+    padding: 9px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.item-observacao p {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.item-observacao span {
+    display: block;
+    margin-top: 8px;
+    color: #999;
+    word-break: break-word;
+}
+
+.sintomas button {
+    width: 100%;
+    height: 36px;
+    margin-bottom: 9px;
+    border: 2px solid #777;
+    border-radius: 7px;
+    background: #bbb;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sintomas button.selecionado {
+    background: #455595;
+}
