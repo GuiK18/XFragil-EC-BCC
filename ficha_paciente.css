@@ -47,7 +47,7 @@ header {
     padding: 6px 10px;
     border: none;
     border-radius: 13px;
-    background: #d5d5d5;
+    background: #c8d1f2;
     font-size: 13px;
 }
 
@@ -60,7 +60,7 @@ header {
     margin-top: 12px;
     border: none;
     border-radius: 50%;
-    background: #777;
+    background: #455595;
     color: white;
     width: 24px;
     height: 24px;
@@ -70,7 +70,7 @@ header {
 .divisor {
     width: 3px;
     height: 105px;
-    background: #ddd;
+    background: #c8d1f2;;
 }
 
 .dados-profissional {
@@ -94,8 +94,8 @@ h2 {
 }
 
 .lista-scroll {
-    background: #aaa;
-    border: 3px solid #888;
+    background: #7888c9;
+    border: 3px solid #455595;;
     border-radius: 6px;
     padding: 6px;
     overflow-y: auto;
@@ -122,7 +122,7 @@ h2 {
 }
 
 .lista-scroll::-webkit-scrollbar-thumb {
-    background: #777;
+    background:#455595;
     border-radius: 10px;
 }
 
@@ -130,9 +130,9 @@ h2 {
     width: 100%;
     height: 36px;
     margin-bottom: 8px;
-    border: 2px solid #777;
+    border: 2px solid #455595;
     border-radius: 7px;
-    background: #bbb;
+    background: #7888c9;
     color: white;
     font-weight: bold;
     font-size: 16px;
@@ -140,7 +140,7 @@ h2 {
 }
 
 .lista-scroll button.selecionado {
-    background: #455595;
+    background: #7888c9;
 }
 
 .item-observacao,
@@ -153,8 +153,8 @@ h2 {
 }
 
 .item-observacao {
-    background: #ddd;
-    border: 2px solid #777;
+    background: #c8d1f2;
+    border: 2px solid#7888c9;
     padding: 8px;
     cursor: pointer;
 }
@@ -171,7 +171,7 @@ h2 {
 
 .item-observacao span {
     display: block;
-    color: #999;
+    color: #414f88;
     margin-top: 8px;
 }
 
@@ -185,12 +185,12 @@ h2 {
 .relatorios-topo button {
     height: 47px;
     padding: 0 13px;
-    border: 3px solid #888;
+    border: 3px solid #455595;
     border-radius: 9px;
-    background: #bbb;
+    background: #455595;
     font-size: 15px;
     font-weight: bold;
-    color: #666;
+    color: white;
     cursor: pointer;
 }
 
@@ -210,15 +210,15 @@ h2 {
     height: 32px;
     border: none;
     border-radius: 18px;
-    background: #ddd;
+    background: #c8d1f2;
     padding-left: 15px;
     font-size: 16px;
 }
 
 .item-relatorio {
     height: 32px;
-    background: #ddd;
-    border: 2px solid #777;
+    background: #c8d1f2;
+    border: 2px solid #455595;
     display: flex;
     align-items: center;
     padding-left: 15px;
@@ -235,7 +235,7 @@ h2 {
 
 .item-historico {
     min-height: 40px;
-    background: #777;
+    background:#455595;
     color: white;
     border: none;
     border-radius: 20px;
