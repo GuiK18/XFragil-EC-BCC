@@ -3,16 +3,20 @@ const contaService = require("../services/contaService");
 class ContaController {
 
     async criar(req, res) {
-
-        const id =
+        try{
+            const id =
             await contaService.criarConta(
                 req.body
             );
 
-        res.status(201).json({
-            id
-        });
+            res.status(201).json({
+                id
+            });
 
+        } catch (error){
+            res.status(400).json({ mensagem: "Erro ao criar conta: " + error.message });
+        }
+        
     }
 
     async listarProfissionais(req, res) {

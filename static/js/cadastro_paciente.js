@@ -38,8 +38,7 @@ function renderTabs() {
         tab.className = "tab active tab-dinamica";
         tab.dataset.abaId = aba.id;
         tab.style.cssText = "display:flex;align-items:center;gap:10px;cursor:pointer;";
-        tab.style.background = aba.id === abaAtiva ? "#2e3d7a" : "#7888c9";
-        tab.style.color = "white";
+        tab.style.background = aba.id === abaAtiva ? "white" : "#ddd";
 
         const titulo = document.createElement("span");
         titulo.textContent = aba.tabNome || "Criar Paciente";
@@ -271,59 +270,128 @@ function renderHistorico(historico) {
     }).join("");
 }
 
-function apenasCalcular() {
-    const { pontuacao, limiarAmarelo, limiarVermelho, sexo } = calcularPontuacao();
-    renderResultado(pontuacao, limiarAmarelo, limiarVermelho, sexo);
-}
-
-function registrarPaciente() {
+// Substitua a função registrarPaciente antiga por esta:
+async function registrarPaciente() {
     const aba = abas.find(a => a.id === abaAtiva);
     if (!aba) return;
 
     salvarEstadoAba(abaAtiva);
 
-    const { pontuacao, limiarAmarelo, limiarVermelho, sexo } = calcularPontuacao();
+    // Validações básicas antes de enviar ao servidor
+    if (!aba.dados.nome || !aba.dados.cpf || !aba.dados.sexo || !aba.dados.data) {
+        alert("Por favor, preencha todos os campos obrigatórios (Nome, CPF, Sexo e Data de Nascimento).");
+        return;
+    }
 
-    const entrada = { data: dataHoje(), pontuacao, limiarAmarelo, limiarVermelho, sexo };
-    aba.historico.push(entrada);
+    // Coleta as observações em formato texto simples
+    const textoObservacoes = aba.observacoes.map(o => o.texto).join(" | ");
 
-    renderResultado(pontuacao, limiarAmarelo, limiarVermelho, sexo);
-    renderHistorico(aba.historico);
+    // Payload estruturado correspondente ao que o Backend espera
+    const payload = {
+        nome: aba.dados.nome,
+        cpf: aba.dados.cpf,
+        sexo: aba.dados.sexo.toUpperCase().trim(),
+        nascimento: aba.dados.data,
+        responsavel: aba.dados.responsavel,
+        sintomas: aba.sintomas,
+        observacoes: textoObservacoes
+    };
 
-    if (aba.pacienteId === null) {
-        const nome = aba.dados.nome.trim() || "Nome paciente";
-        const id = gerarId();
+    // Recupera o token JWT que foi salvo no momento do login (ajuste a chave se necessário)
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 
-        aba.pacienteId = id;
-        aba.tabNome = "Ficha " + id;
+    try {
+        const response = await fetch("http://localhost:3000/pacientes", { // Certifique-se de usar a URL/Porta correta do seu servidor Node
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(payload)
+        });
 
-        const pac = {
-            id,
-            nome,
-            data: dataHoje(),
-            dados: { ...aba.dados },
-            observacoes: aba.observacoes.map(o => ({ ...o })),
-            sintomas: { ...aba.sintomas },
-            historico: [entrada]
-        };
-        pacientes.push(pac);
+        const resultadoBD = await response.json();
 
-        const lista = document.getElementById("listaPacientes");
-        const placeholder = lista.querySelector(".patient-card:not([data-pac-id])");
-        if (placeholder) placeholder.remove();
+        if (!response.ok) {
+            throw new Error(resultadoBD.erro || "Falha ao registrar paciente no servidor.");
+        }
 
-        const card = document.createElement("div");
-        card.className = "patient-card";
-        card.dataset.pacId = id;
-        card.style.cursor = "pointer";
-        card.innerHTML = `<span><b>${nome}</b> | ${id}</span><i>${dataHoje()}</i>`;
-        card.addEventListener("click", () => abrirFicha(id));
-        lista.appendChild(card);
+        // Calcula localmente apenas para renderizar a resposta visual da aba de imediato
+        const { pontuacao, limiarAmarelo, limiarVermelho, sexo } = calcularPontuacao();
+        const entrada = { data: dataHoje(), pontuacao, limiarAmarelo, limiarVermelho, sexo };
+        
+        aba.historico.push(entrada);
+        renderResultado(pontuacao, limiarAmarelo, limiarVermelho, sexo);
+        renderHistorico(aba.historico);
 
+        // Atualiza o estado da aba com o ID real retornado do MySQL
+        aba.pacienteId = resultadoBD.idPaciente;
+        aba.tabNome = "Ficha " + resultadoBD.idPaciente;
+
+        alert("Paciente e Triagem salvos com sucesso no Banco de Dados!");
+        
+        // Recarrega a lista de pacientes do painel principal
+        carregarMeusPacientes();
         renderTabs();
-    } else {
-        const pac = pacientes.find(p => p.id === aba.pacienteId);
-        if (pac) pac.historico = [...aba.historico];
+
+    } catch (erro) {
+        alert("Erro na integração: " + erro.message);
+    }
+}
+
+// Adicione esta nova função para renderizar dinamicamente os dados vindos do MySQL
+async function carregarMeusPacientes() {
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+    const lista = document.getElementById("listaPacientes");
+    
+    try {
+        const response = await fetch("http://localhost:3000/pacientes/meus", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) return;
+
+        const dadosPacientes = await response.json();
+        pacientes = dadosPacientes.map(p => {
+            // Conversão de data SQL para formato BR
+            const dataFormatada = new Date(p.Nascimento).toLocaleDateString("pt-BR");
+            // Formata o score vindo do banco de volta para decimal (ex: 56 vira 0.56)
+            const scoreDecimal = p.Score ? (p.Score / 100).toFixed(2) : 0;
+
+            return {
+                id: p.IDPaciente,
+                nome: p.NomePaciente,
+                dados: { nome: p.NomePaciente, data: p.Nascimento.split('T')[0], cpf: p.CPF, sexo: p.Sexo, responsavel: p.Responsavel || "" },
+                observacoes: p.Observacoes ? [{ titulo: "Histórico Clínico", data: dataHoje(), texto: p.Observacoes, aberta: false }] : [],
+                sintomas: {},
+                historico: p.Score ? [{ data: dataHoje(), pontuacao: parseFloat(scoreDecimal), limiarAmarelo: p.Sexo === 'M' ? 0.56 : 0.55, limiarVermelho: p.Sexo === 'M' ? 0.73 : 0.76, sexo: p.Sexo }] : []
+            };
+        });
+
+        // Renderiza no HTML os cards reais vindos do banco
+        lista.innerHTML = "";
+        if (pacientes.length === 0) {
+            lista.innerHTML = `<div class="patient-card"><span>Nenhum paciente vinculado.</span></div>`;
+            return;
+        }
+
+        pacientes.forEach(pac => {
+            const card = document.createElement("div");
+            card.className = "patient-card";
+            card.dataset.pacId = pac.id;
+            card.style.cursor = "pointer";
+            
+            const scoreExibicao = pac.historico.length > 0 ? `Último Score: ${pac.historico[0].pontuacao}` : "Sem triagem";
+            card.innerHTML = `<span><b>${pac.nome}</b> | ID: ${pac.id}</span><i>${scoreExibicao}</i>`;
+            card.addEventListener("click", () => abrirFicha(pac.id));
+            lista.appendChild(card);
+        });
+
+    } catch (erro) {
+        console.error("Erro ao listar pacientes do banco:", erro);
     }
 }
 
@@ -383,18 +451,10 @@ document.querySelectorAll(".buttons button")[2].addEventListener("click", () => 
 });
 
 document.querySelector(".patients-header input").addEventListener("input", function () {
-    const termo = this.value.replace(/[^a-z0-9]/gi, "").toLowerCase();
+    const termo = this.value.toLowerCase();
     document.querySelectorAll(".patient-card").forEach(card => {
-        if (termo === "") { card.style.display = ""; return; }
-
-        const b = card.querySelector("b");
-        const nome = b ? b.textContent.toLowerCase() : card.textContent.toLowerCase();
-
-        const pacId = card.dataset.pacId;
-        const pac = pacientes.find(p => p.id === pacId);
-        const cpf = ((pac ? pac.dados.cpf : "") || card.dataset.cpf || "").replace(/[^0-9]/g, "");
-
-        card.style.display = (nome.includes(termo) || cpf.includes(termo)) ? "" : "none";
+        const nome = card.querySelector("b").textContent.toLowerCase();
+        card.style.display = nome.includes(termo) ? "" : "none";
     });
 });
 
@@ -406,16 +466,17 @@ document.querySelector(".tab:first-child").addEventListener("click", irParaPerfi
 document.querySelector(".plus-button").addEventListener("click", abrirNovaAba);
 document.getElementById("tabCriar").style.display = "none";
 
+// Altere o escopo do window.onload para disparar a busca dos pacientes assim que a tela abrir
 window.addEventListener("load", () => {
+    carregarMeusPacientes();
+    
     const nome = localStorage.getItem("medicoNome");
     const cargo = localStorage.getItem("medicoCargo");
-    const email = localStorage.getItem("medicoEmail");
 
     if (nome) {
         document.querySelector(".profile h1").textContent = nome;
         document.querySelector(".tab:first-child").textContent = nome;
     }
-
     if (cargo) {
         document.querySelector(".profile p:nth-of-type(1)").textContent = cargo;
     }

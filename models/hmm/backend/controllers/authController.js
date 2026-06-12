@@ -38,7 +38,14 @@ class AuthController {
             }
         );
 
-        res.json({ token });
+        res.json({ 
+            token, 
+            usuario: { 
+                id: usuario.IDConta, 
+                nome: usuario.NomeConta,
+                role: usuario.role 
+            } 
+        });
     }
 }
 

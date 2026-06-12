@@ -1,32 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Conta</title>
+  <link rel="stylesheet" href="../../static/css/sigin.css">
+</head>
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar Conta</title>
-    <link rel="stylesheet" href="../../static/css/sigin.css">
-  </head>
+<body>
 
-  <body>
-    <a href="index.html" class="btn-entrar">Entrar</a>
+  <main class="container">
+    <h1>Crie sua conta</h1>
 
-    <main class="container">
-      <h1>Crie sua conta</h1>
+    <form id="formCadastro">
+      <input type="text" id="nome" placeholder="Nome completo">
+      <input type="text" id="cpf" placeholder="CPF">
+      <input type="email" id="email" placeholder="Email">
+      <input type="text" id="cargo" placeholder="Cargo na empresa">
+      <input type="password" id="senha" placeholder="Senha">
+      <input type="password" id="confirmarSenha" placeholder="Confirmação de senha">
 
-      <form>
-        <input type="text" placeholder="Nome completo">
-        <input placeholder="CPF" placeholder="CPF (somente digitos)" maxlength="11" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-        <input type="email" placeholder="Email">
-        <input type="text" placeholder="Cargo na empresa">
-        <input type="password" placeholder="Senha">
-        <input type="password" placeholder="Confirmação de senha">
+      <button class="btn-criar" type="submit">Criar</button>
 
-        <button class="btn-criar" type="submit">Criar</button>
+    </form>
 
-        <a href="index.html" class="link-conta">Já tenho conta</a>
-      </form>
-    </main>
-  </body>
-
+  </main>
+  <script src="../../static/js/sign.js"></script>
+</body>
 </html>

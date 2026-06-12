@@ -1,4 +1,4 @@
-const pool = require("../database/connection");
+const pool = require("../db/connection");
 const bcrypt = require("bcrypt");
 
 class ContaService {

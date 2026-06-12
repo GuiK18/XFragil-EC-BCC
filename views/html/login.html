@@ -1,3 +1,5 @@
+<!---Esse era o login.html-->
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -7,27 +9,24 @@
         <title>Tela de Login</title>
 
         <link rel="stylesheet" href="../../static/css/login.css">
+        <script src="../../static/js/entrar.js"></script>
     </head>
 
     <body>
-        <a href="sigin.html" class="btn-criar-conta"> 
-            Crie sua conta
-        </a>
-
         <main class="container">
-        <h1>Entre em sua conta</h1>
+            <div class="logo-container">
+                <img src="../../static/Logo-Eu-digo-X-1024x365.png" alt="Logo Eu Digo X" class="logo-img">
+            </div>
+            <h1>Entre em sua conta</h1>
 
-        <form>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Senha">
+            <form>
+                <input type="email" id="loginEmail" placeholder="Email" required>
+                <input type="password" id="loginSenha" placeholder="Senha" required>
 
-            <button class="btn-entrar" type="submit">
-            Entrar
-            </button>
-
-            <a href="sigin.html" class="link">Não tenho conta</a>
-            <a href="#" class="link">Esqueci minha senha</a>
-        </form>
+                <button class="btn-entrar" type="button" onclick="entrar()">
+                Entrar
+                </button>
+            </form>
         </main>
     </body>
     
