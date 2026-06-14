@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: white;
+}
+
+header {
+    width: 100%;
+    height: 45px;
+    background: #455595;
+}
+
+.container {
+    padding: 20px;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.foto-box {
+    width: 85px;
+    height: 85px;
+    position: relative;
+}
+
+.foto-box img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid #455595;
+}
+
+.foto-box button {
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: #455595;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.perfil h2 {
+    font-size: 24px;
+}
+
+.perfil p {
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.titulo-linha {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.titulo-linha h2 {
+    font-size: 22px;
+}
+
+.titulo-linha input {
+    height: 32px;
+    border: none;
+    border-radius: 18px;
+    background: #c8d1f2;
+    padding-left: 15px;
+    font-size: 15px;
+    outline: none;
+}
+
+.titulo-linha button {
+    height: 34px;
+    padding: 0 16px;
+    border: 3px solid #414f88;
+    border-radius: 10px;
+    background: #414f88;
+    color:white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.lista-scroll {
+    background: #7888c9;
+    
+    border: 3px solid #455595;
+    border-radius: 6px;
+    padding: 6px;
+    overflow-y: auto;
+}
+
+#listaRelatorios {
+    height: 222px;
+}
+
+.pacientes {
+    height: 222px;
+}
+
+
+.patient-card {
+    height: 55px;
+    background:  #7888c9;
+    border: 2px solid#455595;
+    border-radius: 12px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 18px;
+    font-size: 22px;
+    color: white;
+}
+
+.profissionais {
+    height: 222px;
+}
+
+.profissionais-titulo {
+    margin-top: 12px;
+}
+
+.lista-scroll::-webkit-scrollbar {
+    width: 8px;
+}
+
+.lista-scroll::-webkit-scrollbar-thumb {
+    background: #455595;
+    border-radius: 10px;
+}
+
+.item-lista {
+    min-height: 36px;
+    background: #c8d1f2;
+    border: 2px solid #7888c9;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    padding: 7px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+
+.item-lista span {
+    font-size: 16px;
+}
+
+.item-lista i {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.oculto {
+    display: none;
+}
+.item-lista:hover { filter: brightness(0.93); }
+.titulo-linha button:hover { filter: brightness(1.2); cursor: pointer; }
+.foto-box button:hover { filter: brightness(1.3); cursor: pointer; }
+/* ===== MODAL ===== */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.35);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal.ativo {
+    display: flex;
+}
+
+.modal-content {
+    width: 520px;
+    max-width: 90%;
+    background: white;
+    border-radius: 30px;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.modal-content img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 4px solid #455595;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.modal-content h1 {
+    font-size: 52px;
+    margin-bottom: 30px;
+}
+
+.modal-info p {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 6px 0;
+}
+
+.btn-inativar {
+    margin-top: 30px;
+    width: 210px;
+    height: 75px;
+    border: none;
+    border-radius: 12px;
+    background: #455595;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-inativar:hover {
+    filter: brightness(1.1);
+}
+.conteudo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.pacientes,
+.profissionais {
+    height: 250px;
+}

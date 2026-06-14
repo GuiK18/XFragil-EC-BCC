@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../../static/css/adm.css">
+</head>
+<body>
+
+<header></header>
+
+<main>
+
+    <div class="perfil">
+            <div class="foto-box">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+                
+            </div>
+
+            <div>
+                <h2 id="nomeUsuario">Nome</h2>
+                <p id="cargoUsuario">Cargo na empresa</p>
+                <p>Administrador</p>
+                <p>#id.de.conta</p>
+            </div>
+        </div>
+
+    <div class="conteudo">
+        
+        <section class="pacientes-area">
+
+            <div class="titulo-linha">
+                <h2>Meus pacientes</h2>
+                <input id="campoBusca" placeholder="Procurar pacientes">
+                <button id="btnAdicionarPaciente">Adicionar paciente</button>
+            </div>
+  
+
+            <div class="lista-scroll pacientes" id="listaPacientes"></div>
+
+        </section>
+
+        <section class="profissionais-area">
+
+            <div class="titulo-linha">
+                <h2>Profissionais</h2>
+                <input id="buscarProfissional" placeholder="Procurar profissional/secretaria">
+                <button onclick="adicionarProfissional()">Adicionar</button>
+            </div>
+
+            <div class="lista-scroll profissionais" id="listaProfissionais"></div>
+
+        </section>
+
+    </div>
+
+</main>
+
+<div id="modalProfissional" class="modal">
+    <div class="modal-content">
+
+        <img
+            id="modalFoto"
+            src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            alt="Foto">
+
+        <h1 id="modalNome">Nome</h1>
+
+        <div class="modal-info">
+            <p id="modalId">#id.de.conta</p>
+            <p id="modalCargo">Cargo na empresa</p>
+            <p id="modalCpf">CPF</p>
+        </div>
+
+        <button class="btn-inativar">
+            INATIVAR
+        </button>
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../../static/js/relatorio_pdf.js"></script>
+<script src="../../static/js/adm.js"></script>
+</body>
+</html>

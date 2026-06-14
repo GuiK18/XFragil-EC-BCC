@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Paciente</title>
+    <link rel="stylesheet" href="../../static/css/cadastro_paciente.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="top-bar">
+        <div class="tab" id="tabVoltar" style="cursor:pointer;">← Voltar</div>
+        <div class="tab active" id="tabTitulo">Cadastro de Paciente</div>
+    </div>
+
+    <section id="telaCriar" style="display:flex; padding:18px 35px 35px; gap:25px;">
+
+        <div class="left-panel">
+
+            <h2 id="tituloProfissional">Profissional responsável: —</h2>
+
+            <div class="form-paciente">
+                <input id="nomePaciente"        placeholder="Nome do Paciente">
+                <input id="dataNascimento"      type="date">
+                <input id="cpfPaciente"         placeholder="CPF" maxlength="11"
+                       inputmode="numeric" pattern="[0-9]*"
+                       oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                <input id="sexoPaciente"        placeholder="Sexo: [F] [M]">
+                <input id="responsavelPaciente" placeholder="Responsável">
+            </div>
+
+            <h2>Observações</h2>
+            <div class="observacoes"></div>
+
+            <div class="buttons">
+                <button>Adicionar</button>
+                <button>Editar</button>
+                <button>Deletar</button>
+            </div>
+
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="right-panel">
+
+            <h2>Formulário</h2>
+
+            <div class="formulario">
+                <div class="sintoma" data-key="deficiencia_intelectual"><span></span> Deficiência intelectual</div>
+                <div class="sintoma" data-key="face_alongada"><span></span> Face alongada/orelhas</div>
+                <div class="sintoma" data-key="macroorquidismo"><span></span> Macroorquidismo</div>
+                <div class="sintoma" data-key="hipermobilidade"><span></span> Hipermobilidade articular</div>
+                <div class="sintoma" data-key="dificuldade_aprendizagem"><span></span> Dificuldades de aprendizagem</div>
+                <div class="sintoma" data-key="deficit_atencao"><span></span> Déficit de atenção</div>
+                <div class="sintoma" data-key="mov_repetitivos"><span></span> Mov. repetitivos</div>
+                <div class="sintoma" data-key="atraso_fala"><span></span> Atraso na fala</div>
+                <div class="sintoma" data-key="hiperatividade"><span></span> Hiperatividade</div>
+                <div class="sintoma" data-key="evita_visual"><span></span> Evita contato visual</div>
+                <div class="sintoma" data-key="evita_fisico"><span></span> Evita contato físico</div>
+                <div class="sintoma" data-key="agressividade"><span></span> Agressividade</div>
+            </div>
+
+            <div id="resultadoCalculo" style="display:none;">
+                <div id="resultadoBox"></div>
+                <h3 style="margin-top:18px; margin-bottom:8px; font-size:17px;">Histórico de pontuações</h3>
+                <div id="historicoBox"></div>
+            </div>
+
+            <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:18px;">
+                <button class="calcular" onclick="exportarPDF()">Exportar PDF</button>
+                <button class="calcular" onclick="apenasCalcular()">Calcular</button>
+                <button class="calcular" onclick="registrarPaciente()">Salvar</button>
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="../../static/js/relatorio_pdf.js"></script>
+<script src="../../static/js/cadastro_paciente.js"></script>
+</body>
+</html>

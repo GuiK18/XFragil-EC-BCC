@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel do Profissional</title>
+    <link rel="stylesheet" href="../../static/css/cadastro_paciente.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="top-bar">
+        <div class="tab" id="tabNome">Nome</div>
+    </div>
+
+    <div class="profile">
+        <div class="foto">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
+        </div>
+        <div>
+            <h1>Nome</h1>
+            <p>Cargo na empresa</p>
+            <p>#id.de.conta</p>
+        </div>
+    </div>
+
+    <div class="patients-header">
+        <h2>Meus pacientes</h2>
+        <input id="campoBusca" placeholder="Procurar pacientes">
+        <button id="btnAdicionarPaciente">Adicionar paciente</button>
+    </div>
+
+    <div class="patients-list" id="listaPacientes">
+        <div class="patient-card">
+            <span><b>Carregando...</b></span>
+        </div>
+    </div>
+
+</div>
+
+<script src="../../static/js/painel_medico.js"></script>
+</body>
+</html>
