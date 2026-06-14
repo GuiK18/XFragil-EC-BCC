@@ -11,8 +11,8 @@ require("../controllers/contaController");
 
 router.post(
     "/",
-    //auth,
-    //role("ADM"),
+    auth,
+    role("ADM"),
     controller.criar
 );
 

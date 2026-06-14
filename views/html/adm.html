@@ -2,54 +2,47 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Dashboard ADM</title>
     <link rel="stylesheet" href="../../static/css/adm.css">
 </head>
 <body>
 
-<header></header>
+<div class="top-bar">
+    <div class="tab" id="tabNome">Nome</div>
+    <button class="plus-button">+</button>
+</div>
 
-<main>
+<main class="container">
 
-    <div class="perfil">
-            <div class="foto-box">
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
-                
-            </div>
-
-            <div>
-                <h2 id="nomeUsuario">Nome</h2>
-                <p id="cargoUsuario">Cargo na empresa</p>
-                <p>Administrador</p>
-                <p>#id.de.conta</p>
-            </div>
+    <div class="profile">
+        <div class="foto-box">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
         </div>
+        <div>
+            <h1 id="nomeUsuario">Nome</h1>
+            <p id="cargoUsuario">Cargo na empresa</p>
+            <p id="idUsuario">#id.de.conta</p>
+        </div>
+    </div>
 
     <div class="conteudo">
-        
-        <section class="pacientes-area">
 
+        <section>
             <div class="titulo-linha">
-                <h2>Meus pacientes</h2>
-                <input id="campoBusca" placeholder="Procurar pacientes">
+                <h2>Pacientes</h2>
+                <input id="campoBusca" placeholder="Procurar paciente">
                 <button id="btnAdicionarPaciente">Adicionar paciente</button>
             </div>
-  
-
             <div class="lista-scroll pacientes" id="listaPacientes"></div>
-
         </section>
 
-        <section class="profissionais-area">
-
+        <section>
             <div class="titulo-linha">
                 <h2>Profissionais</h2>
                 <input id="buscarProfissional" placeholder="Procurar profissional/secretaria">
                 <button onclick="adicionarProfissional()">Adicionar</button>
             </div>
-
             <div class="lista-scroll profissionais" id="listaProfissionais"></div>
-
         </section>
 
     </div>
@@ -58,24 +51,16 @@
 
 <div id="modalProfissional" class="modal">
     <div class="modal-content">
-
-        <img
-            id="modalFoto"
-            src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
-            alt="Foto">
-
+        <img id="modalFoto" src="https://cdn-icons-png.flaticon.com/512/149/149071.png">
         <h1 id="modalNome">Nome</h1>
-
         <div class="modal-info">
             <p id="modalId">#id.de.conta</p>
             <p id="modalCargo">Cargo na empresa</p>
             <p id="modalCpf">CPF</p>
         </div>
-
-        <button class="btn-inativar">
-            INATIVAR
-        </button>
-
+        <button class="btn-inativar" onclick="inativarProfissional()">INATIVAR</button>
+        <br>
+        <button class="btn-fechar-modal" onclick="fecharModal()">Fechar</button>
     </div>
 </div>
 
