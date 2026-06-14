@@ -44,9 +44,10 @@ class PacienteService {
             );
 
             let idPaciente;
-            let operacao; 
+            let operacao;
 
             if (pacienteExistente.length === 0) {
+
                 operacao = 'novo';
 
                 const [pacienteResult] = await connection.execute(
@@ -77,15 +78,12 @@ class PacienteService {
                 );
 
                 await connection.execute(
-                    `INSERT INTO LogAtividade (Mudanca, IDConta)
-                     VALUES (?, ?)`,
-                    [
-                        `Paciente ID ${idPaciente} (CPF: ${cpfNumerico}) criado.`,
-                        dados.idMedico
-                    ]
+                    `INSERT INTO LogAtividade (Mudanca, IDConta) VALUES (?, ?)`,
+                    [`Paciente ID ${idPaciente} (CPF: ${cpfNumerico}) criado.`, dados.idMedico]
                 );
 
             } else {
+
                 idPaciente = pacienteExistente[0].IDPaciente;
 
                 const [vinculoExistente] = await connection.execute(
@@ -96,51 +94,37 @@ class PacienteService {
 
                 if (vinculoExistente.length === 0) {
                     operacao = 'vinculado';
-
                     await connection.execute(
-                        `INSERT INTO ProfissionaisPorPaciente (IDConta, IDPaciente)
-                         VALUES (?, ?)`,
+                        `INSERT INTO ProfissionaisPorPaciente (IDConta, IDPaciente) VALUES (?, ?)`,
                         [dados.idMedico, idPaciente]
                     );
-
                     await connection.execute(
-                        `INSERT INTO LogAtividade (Mudanca, IDConta)
-                         VALUES (?, ?)`,
-                        [
-                            `Profissional ID ${dados.idMedico} vinculado ao Paciente ID ${idPaciente}.`,
-                            dados.idMedico
-                        ]
+                        `INSERT INTO LogAtividade (Mudanca, IDConta) VALUES (?, ?)`,
+                        [`Profissional ID ${dados.idMedico} vinculado ao Paciente ID ${idPaciente}.`, dados.idMedico]
                     );
-
                 } else {
                     operacao = 'atualizado';
                 }
 
                 const [formExistente] = await connection.execute(
-                    `SELECT IDForm FROM Formulario
-                     WHERE IDPaciente = ?
-                     ORDER BY IDForm DESC LIMIT 1`,
+                    `SELECT IDForm FROM Formulario WHERE IDPaciente = ? ORDER BY IDForm DESC LIMIT 1`,
                     [idPaciente]
                 );
 
                 if (formExistente.length > 0) {
                     await connection.execute(
-                        `UPDATE Formulario
-                         SET Score = ?, Observacoes = ?
-                         WHERE IDForm = ?`,
+                        `UPDATE Formulario SET Score = ?, Observacoes = ? WHERE IDForm = ?`,
                         [scoreFinal, dados.observacoes || "", formExistente[0].IDForm]
                     );
                 } else {
                     await connection.execute(
-                        `INSERT INTO Formulario (Score, Observacoes, IDPaciente)
-                         VALUES (?, ?, ?)`,
+                        `INSERT INTO Formulario (Score, Observacoes, IDPaciente) VALUES (?, ?, ?)`,
                         [scoreFinal, dados.observacoes || "", idPaciente]
                     );
                 }
 
                 await connection.execute(
-                    `INSERT INTO LogAtividade (Mudanca, IDConta)
-                     VALUES (?, ?)`,
+                    `INSERT INTO LogAtividade (Mudanca, IDConta) VALUES (?, ?)`,
                     [
                         `Formulário do Paciente ID ${idPaciente} atualizado (score: ${scoreFinal}). Operação: ${operacao}.`,
                         dados.idMedico
@@ -169,6 +153,17 @@ class PacienteService {
              WHERE pp.IDConta = ?
              ORDER BY p.IDPaciente DESC`,
             [idConta]
+        );
+        return rows;
+    }
+
+    async listarTodosPacientes() {
+        const [rows] = await pool.execute(
+            `SELECT p.*, f.Score, f.Observacoes, a.NomeAcompanhante as Responsavel
+             FROM Paciente p
+             LEFT JOIN Formulario f ON f.IDPaciente = p.IDPaciente
+             LEFT JOIN Acompanhante a ON a.IDPaciente = p.IDPaciente
+             ORDER BY p.IDPaciente DESC`
         );
         return rows;
     }

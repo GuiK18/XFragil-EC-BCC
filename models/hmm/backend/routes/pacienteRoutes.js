@@ -19,8 +19,15 @@ router.post(
 router.get(
     "/meus",
     auth,
-    role("ADM","DOC"),
+    role("DOC"),
     controller.meusPacientes
+);
+
+router.get(
+    "/todos", 
+    auth, 
+    role("ADM"), 
+    controller.listarTodos
 );
 
 module.exports = router;

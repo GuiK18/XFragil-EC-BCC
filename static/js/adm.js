@@ -1,5 +1,5 @@
-let pacientes     = [];
-let profissionais = [];
+let pacientes             = [];
+let profissionais         = [];
 let profissionalSelecionado = null;
 
 function dataHoje() {
@@ -12,7 +12,7 @@ async function carregarPacientes() {
     if (!token) { window.location.href = "login.html"; return; }
 
     try {
-        const response = await fetch("http://localhost:3000/pacientes/meus", {
+        const response = await fetch("http://localhost:3000/pacientes/todos", { // ← era /meus
             headers: { "Authorization": `Bearer ${token}` }
         });
 
@@ -39,11 +39,11 @@ async function carregarPacientes() {
                 : [],
             sintomas: {},
             historico: p.Score ? [{
-                data: dataHoje(),
-                pontuacao: parseFloat((p.Score / 100).toFixed(2)),
+                data:          dataHoje(),
+                pontuacao:     parseFloat((p.Score / 100).toFixed(2)),
                 limiarAmarelo:  p.Sexo === "M" ? 0.56 : 0.55,
                 limiarVermelho: p.Sexo === "M" ? 0.73 : 0.76,
-                sexo: p.Sexo
+                sexo:           p.Sexo
             }] : []
         }));
 
@@ -55,9 +55,10 @@ async function carregarPacientes() {
 
         pacientes.forEach(pac => {
             const card = document.createElement("div");
-            card.className     = "patient-card";
-            card.dataset.nome  = pac.nome.toLowerCase();
-            card.dataset.cpf   = pac.cpf.replace(/[^0-9]/g, "");
+            card.className    = "patient-card";
+            card.dataset.nome = pac.nome.toLowerCase();
+            card.dataset.cpf  = pac.cpf.replace(/[^0-9]/g, "");
+            card.style.cursor = "pointer";
 
             const score = pac.historico.length > 0
                 ? `Score: ${pac.historico[0].pontuacao}`
@@ -69,9 +70,16 @@ async function carregarPacientes() {
         });
 
     } catch (erro) {
-        document.getElementById("listaPacientes").innerHTML =
-            `<div class="patient-card"><span>Falha na conexão.</span></div>`;
+        console.error("Erro ao listar todos os pacientes:", erro);
+        lista.innerHTML = `<div class="patient-card"><span>Falha na conexão.</span></div>`;
     }
+}
+
+function abrirFicha(pacienteId) {
+    const pac = pacientes.find(p => p.id === pacienteId);
+    if (!pac) return;
+    sessionStorage.setItem("pacienteAtivo", JSON.stringify(pac));
+    window.location.href = "cadastro_paciente.html";
 }
 
 async function carregarProfissionais() {
@@ -83,46 +91,89 @@ async function carregarProfissionais() {
             headers: { "Authorization": `Bearer ${token}` }
         });
 
-        if (!response.ok) return;
+        if (!response.ok) {
+            lista.innerHTML = `<div class="item-lista"><span>Erro ao carregar profissionais.</span></div>`;
+            return;
+        }
 
         profissionais = await response.json();
         lista.innerHTML = "";
+
+        if (profissionais.length === 0) {
+            lista.innerHTML = `<div class="item-lista"><span>Nenhum profissional cadastrado.</span></div>`;
+            return;
+        }
 
         profissionais.forEach(prof => {
             const item = document.createElement("div");
             item.className    = "item-lista";
             item.dataset.nome  = (prof.NomeConta || "").toLowerCase();
-            item.dataset.cpf   = String(prof.CPF || "").replace(/[^0-9]/g, "");
+            item.dataset.cpf   = String(prof.CPF  || "").replace(/[^0-9]/g, "");
             item.dataset.email = (prof.Email || "").toLowerCase();
             item.dataset.id    = String(prof.IDConta || "");
 
+            const inativo = prof.role === "INATIVO";
             item.innerHTML = `
-                <span><b>${prof.NomeConta}</b> | #${prof.IDConta}</span>
+                <span>
+                    <b>${prof.NomeConta}</b>
+                    ${inativo ? '<span style="color:#c0392b;font-size:13px;"> (INATIVO)</span>' : ""}
+                    | #${prof.IDConta}
+                </span>
                 <i>${prof.Email}</i>
             `;
-
             item.addEventListener("click", () => abrirModalProfissional(prof));
             lista.appendChild(item);
         });
 
     } catch (erro) {
+        console.error("Erro ao listar profissionais:", erro);
         lista.innerHTML = `<div class="item-lista"><span>Falha na conexão.</span></div>`;
     }
 }
 
-function abrirFicha(pacienteId) {
-    const pac = pacientes.find(p => p.id === pacienteId);
-    if (!pac) return;
-    sessionStorage.setItem("pacienteAtivo", JSON.stringify(pac));
-    window.location.href = "cadastro_paciente.html";
+document.getElementById("btnAdicionarProfissional").addEventListener("click", () => {
+    window.location.href = "../../views/html/sigin.html";
+});
+
+async function adicionarProfissional() {
+    
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+
+    try {
+        const response = await fetch("http://localhost:3000/contas", {
+            method:  "POST",
+            headers: {
+                "Content-Type":  "application/json",
+                "Authorization": `Bearer ${token}` 
+            },
+            body: JSON.stringify({ nome, cpf, email, senha, role })
+        });
+
+        const resultado = await response.json();
+        if (!response.ok) throw new Error(resultado.mensagem || "Erro ao criar conta.");
+
+        alert(`✅ Profissional "${nome}" cadastrado com sucesso! ID: ${resultado.id}`);
+        carregarProfissionais();
+
+    } catch (erro) {
+        alert("Erro ao cadastrar profissional: " + erro.message);
+    }
 }
 
 function abrirModalProfissional(prof) {
     profissionalSelecionado = prof;
-    document.getElementById("modalNome").textContent  = prof.NomeConta  || "—";
-    document.getElementById("modalId").textContent    = "#" + prof.IDConta;
-    document.getElementById("modalCargo").textContent = prof.role        || "—";
-    document.getElementById("modalCpf").textContent   = "CPF: " + (prof.CPF || "—");
+
+    document.getElementById("modalNome").textContent  = prof.NomeConta || "—";
+    document.getElementById("modalId").textContent    = "ID: #" + prof.IDConta;
+    document.getElementById("modalCargo").textContent = "Cargo: " + (prof.role || "—");
+    document.getElementById("modalCpf").textContent   = "CPF: " + (prof.CPF   || "—");
+
+    const btn = document.querySelector(".btn-inativar");
+    const jaInativo = prof.role === "INATIVO";
+    btn.disabled    = jaInativo;
+    btn.textContent = jaInativo ? "JÁ INATIVO" : "INATIVAR";
+    btn.style.opacity = jaInativo ? "0.5" : "1";
+
     document.getElementById("modalProfissional").classList.add("ativo");
 }
 
@@ -131,15 +182,40 @@ function fecharModal() {
     profissionalSelecionado = null;
 }
 
-function inativarProfissional() {
+async function inativarProfissional() {
     if (!profissionalSelecionado) return;
-    if (!confirm(`Inativar ${profissionalSelecionado.NomeConta}?`)) return;
-    alert("Funcionalidade de inativação requer integração com o backend.");
-    fecharModal();
-}
+    if (profissionalSelecionado.role === "INATIVO") {
+        alert("Esta conta já está inativa.");
+        return;
+    }
 
-function adicionarProfissional() {
-    alert("Cadastro de profissional disponível na tela de signup.");
+    const confirma = confirm(
+        `⚠️ Deseja inativar a conta de "${profissionalSelecionado.NomeConta}"?\n` +
+        `O acesso ao sistema será bloqueado imediatamente.`
+    );
+    if (!confirma) return;
+
+    const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+
+    try {
+        const response = await fetch(
+            `http://localhost:3000/contas/${profissionalSelecionado.IDConta}/inativar`,
+            {
+                method:  "PATCH",
+                headers: { "Authorization": `Bearer ${token}` }
+            }
+        );
+
+        const resultado = await response.json();
+        if (!response.ok) throw new Error(resultado.erro || "Erro ao inativar.");
+
+        alert(`✅ Conta de "${profissionalSelecionado.NomeConta}" inativada.`);
+        fecharModal();
+        carregarProfissionais();
+
+    } catch (erro) {
+        alert("Erro ao inativar: " + erro.message);
+    }
 }
 
 document.getElementById("btnAdicionarPaciente").addEventListener("click", () => {
@@ -158,7 +234,7 @@ document.getElementById("campoBusca").addEventListener("input", function () {
 });
 
 document.getElementById("buscarProfissional").addEventListener("input", function () {
-    const termo = this.value.trim().toLowerCase();
+    const termo    = this.value.trim().toLowerCase();
     const termoCpf = termo.replace(/[^0-9]/g, "");
     document.querySelectorAll("#listaProfissionais .item-lista").forEach(item => {
         if (!termo) { item.style.display = ""; return; }
@@ -166,7 +242,8 @@ document.getElementById("buscarProfissional").addEventListener("input", function
         const email = item.dataset.email || "";
         const cpf   = item.dataset.cpf   || "";
         const id    = item.dataset.id    || "";
-        const bate  = nome.includes(termo) || email.includes(termo) || id.includes(termo) || (termoCpf && cpf.includes(termoCpf));
+        const bate  = nome.includes(termo) || email.includes(termo) || id.includes(termo)
+                   || (termoCpf && cpf.includes(termoCpf));
         item.style.display = bate ? "" : "none";
     });
 });
@@ -183,12 +260,12 @@ window.addEventListener("load", () => {
     const cargo = localStorage.getItem("userRole");
     const id    = localStorage.getItem("userId");
 
-    if (nome)  {
+    if (nome) {
         document.getElementById("nomeUsuario").textContent = nome;
         document.getElementById("tabNome").textContent     = nome;
     }
-    if (cargo) document.getElementById("cargoUsuario").textContent = cargo;
-    if (id)    document.getElementById("idUsuario").textContent    = "#" + id;
+    if (cargo) document.getElementById("cargoUsuario").textContent = `Cargo na empresa: ${cargo}`;
+    if (id)    document.getElementById("idUsuario").textContent    = `ID de Conta: ${id}`;
 
     carregarPacientes();
     carregarProfissionais();

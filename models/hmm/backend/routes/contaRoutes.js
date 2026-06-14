@@ -1,13 +1,7 @@
-const router = require("express").Router();
-
-const auth =
-require("../middlewares/authMiddleware");
-
-const role =
-require("../middlewares/roleMiddleware");
-
-const controller =
-require("../controllers/contaController");
+const router     = require("express").Router();
+const auth       = require("../middlewares/authMiddleware");
+const role       = require("../middlewares/roleMiddleware");
+const controller = require("../controllers/contaController");
 
 router.post(
     "/",
@@ -16,11 +10,19 @@ router.post(
     controller.criar
 );
 
+
 router.get(
     "/profissionais",
     auth,
     role("ADM"),
     controller.listarProfissionais
+);
+
+router.patch(
+    "/:id/inativar",
+    auth,
+    role("ADM"),
+    controller.inativar
 );
 
 module.exports = router;

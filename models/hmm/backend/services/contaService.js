@@ -63,6 +63,13 @@ class ContaService {
 
         return rows;
     }
+
+    async inativar(idConta) {
+        await pool.execute(
+            `UPDATE Conta SET role = 'INATIVO' WHERE IDConta = ?`,
+            [idConta]
+        );
+    }
 }
 
 module.exports = new ContaService();
